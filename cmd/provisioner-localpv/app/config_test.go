@@ -74,13 +74,14 @@ func TestDataConfigToMap(t *testing.T) {
 			"HardLimitGrace": "80%",
 		},
 	}
+	modeConfig := mconfig.Config{Name: "LocalMode", Value: "0770"}
 
 	testCases := map[string]struct {
 		config        []mconfig.Config
 		expectedValue map[string]interface{}
 	}{
 		"nil 'Data' map": {
-			config: []mconfig.Config{hostpathConfig, xfsQuotaConfig},
+			config: []mconfig.Config{hostpathConfig, xfsQuotaConfig, modeConfig},
 			expectedValue: map[string]interface{}{
 				"XFSQuota": map[string]string{
 					"SoftLimitGrace": "20%",

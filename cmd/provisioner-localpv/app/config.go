@@ -120,6 +120,9 @@ const (
 	KeyXFSQuota          = "XFSQuota"
 	KeyXfsQuotaSoftLimit = "softLimitGrace"
 	KeyXfsQuotaHardLimit = "hardLimitGrace"
+
+	//KeyLocalMode allows to define the default directory mode
+	KeyPVLocalMode = "LocalMode"
 )
 
 const (
@@ -309,6 +312,16 @@ func (c *VolumeConfig) IsXfsQuotaEnabled() bool {
 	}
 
 	return enableXfsQuotaBool
+}
+
+//GetLocalMode returns the LocalMode value configured
+// in StorageClass. Default is 0777
+func (c *VolumeConfig) GetPVLocalMode() string {
+	mode := c.getValue(KeyPVLocalMode)
+	if len(strings.TrimSpace(mode)) == 0 {
+		return "0777"
+	}
+	return mode
 }
 
 //getValue is a utility function to extract the value
